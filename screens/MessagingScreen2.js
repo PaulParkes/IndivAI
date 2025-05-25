@@ -3,7 +3,6 @@ import {
   ExpoImage,
   IconButton,
   KeyboardAvoidingView,
-  LoadingIndicator,
   ScreenContainer,
   SimpleStyleFlatList,
   TextInput,
@@ -18,6 +17,7 @@ import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import imageSource from '../utils/imageSource';
+import useIsFocused from '../utils/useIsFocused';
 import useNavigation from '../utils/useNavigation';
 import useParams from '../utils/useParams';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -39,12 +39,34 @@ const MessagingScreen2 = props => {
   const params = useParams();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
-  const [chat, setChat] = React.useState({});
+  const [History, setHistory] = React.useState([]);
+  const [apiKey, setApiKey] = React.useState(
+    'AIzaSyCmZsHkYYf3BSeQa3W6YMkT1W9CUr5imbQ'
+  );
   const [inputMessage, setInputMessage] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const [messages, setMessages] = React.useState([]);
-  const [receiver, setReceiver] = React.useState('');
-  const [sender, setSender] = React.useState('');
+  const generateChatHistory = messages => {
+    let geminiHistory = [];
+    try {
+      //Rebuilding chat hitsory in the Gemini "chat" method "history" object shape
+      messages.forEach(appMessage => {
+        const setRole = appMessage.Sender === 'me' ? 'user' : 'model';
+        geminiHistory.push({
+          role: setRole,
+          parts: [{ text: appMessage.Message }],
+        });
+      });
+      console.log('Successfully created Gemini Chat History');
+      return geminiHistory;
+    } catch (error) {
+      console.error(
+        'Error whilst transforming messages to geminiHistory:',
+        error
+      );
+    }
+  };
+
   // Dynamically change corner radius based on who the message is sent to ("me" vs "gemini")
   const leftCornerRadius = item => {
     return item.Receiver === 'me' ? 5 : 20;
@@ -52,52 +74,130 @@ const MessagingScreen2 = props => {
 
   const loadMessagesFromDatabase = async (
     characterID,
-    messages,
     initialGreeting,
     characterIntro
   ) => {
     //Ammended from https://docs.expo.dev/versions/v51.0.0/sdk/sqlite/
     const db = await expoSqlite.openDatabaseAsync('IndivDB');
-
-    console.log('characterID', characterID);
-    //Retrieves all messages associated with the input Charater ID
-    await db.withExclusiveTransactionAsync(async () => {
-      const messageHistory = await db.getAllAsync(
-        `SELECT Sender, Message, Timestamp, Message_ID, Character_ID 
-  FROM Messages 
-  WHERE Messages.Character_ID = $character_ID`,
-        { $character_ID: characterID }
-      );
-      if (messageHistory) {
-        //Overwrites messages so that they can be rendered in the Flastlist
-        setMessages([
-          {
-            Sender: 'gemini',
-            Message: characterIntro,
-            Receiver: 'me',
-            Timestamp: '',
-            Message_ID: '',
-            Character_ID: '',
-          },
-          {
-            Sender: 'gemini',
-            Message: initialGreeting,
-            Receiver: 'me',
-            Timestamp: '',
-            Message_ID: '',
-            Character_ID: '',
-          },
-          ...messages,
-          ...messageHistory,
-        ]);
-      }
-    });
-    await db.closeAsync();
+    let messageHistory;
+    try {
+      //Retrieves all messages associated with the input Charater ID
+      await db.withExclusiveTransactionAsync(async () => {
+        messageHistory = await db.getAllAsync(
+          `SELECT Sender, Message, Receiver, Timestamp, Message_ID, Character_ID 
+    FROM Messages 
+    WHERE Messages.Character_ID = $character_ID`,
+          { $character_ID: characterID }
+        );
+      });
+    } catch (error) {
+      console.error('Error fetching Message History', error);
+    } finally {
+      await db.closeAsync();
+    }
+    if (messageHistory) {
+      //Returns the messages object array
+      setMessages([
+        {
+          Sender: 'gemini',
+          Message: characterIntro,
+          Receiver: 'me',
+          Timestamp: '',
+          Message_ID: '',
+          Character_ID: '',
+        },
+        {
+          Sender: 'gemini',
+          Message: initialGreeting,
+          Receiver: 'me',
+          Timestamp: '',
+          Message_ID: '',
+          Character_ID: '',
+        },
+        ...messageHistory,
+      ]);
+      console.log('Successfully loaded messages from database');
+    } else {
+      console.log('Database missing or empty');
+    }
   };
 
   // Dynamically change message alignment on the screen based on who the message is sent to ("me" vs "gemini")
   const messageAlignment = item => {
     return item.Receiver === 'me' ? 'flex-start' : 'flex-end';
+  };
+
+  const requestResponseFromGemini = async (
+    inputMessage,
+    characterID,
+    messages,
+    geminiApiKey,
+    characterName,
+    introduction,
+    inDepthDetails
+  ) => {
+    //Ammended from https://ai.google.dev/gemini-api/docs/quickstart?lang=node
+    //Includes methdods from https://ai.google.dev/api/generate-content#v1beta.GenerationConfig
+    const instructions = `Your name is ${characterName}. You are ${introduction}, and you are ${inDepthDetails}. 
+You always stay in character as ${characterName}. You respond from your own perspective, using "I" when referring to yourself. 
+You never reveal that you are an AI or an assistant. You never break character. 
+Generate a chat message in Json format 'Sender':'gemini' to 'Receiver':'me'.
+Always respond with a valid JSON object in this exact format:
+{
+"Sender": "gemini",
+"Message": "<your in-character reply>",
+"Receiver": "me"
+}`;
+    const ai = new googleGenai.GoogleGenAI({ apiKey: geminiApiKey });
+    geminihistory = generateChatHistory(messages);
+    let response = {};
+    try {
+      const response = await ai.models.generateContent({
+        model: 'gemini-2.0-flash',
+        contents: geminihistory,
+        //Defining the method and size of the response from the GeminiAPI
+        config: {
+          responseMimeType: 'application/json', //Method
+          systemInstruction: instructions, //This is where the character description is used to prompt a response in Character
+          maxOutputTokens: 175, //Size
+          responseSchema: {
+            //JSON Shape
+            type: 'object',
+            properties: {
+              Sender: { type: 'string' },
+              Message: { type: 'string' },
+              Receiver: { type: 'string' },
+            },
+            required: ['Sender', 'Message', 'Receiver'],
+          }, //This should contribute to token count so most unnecessary spacing has been removed
+        },
+      });
+      //console.log(response.text);
+      parsedResponse = JSON.parse(response.text);
+      console.log(parsedResponse);
+    } catch (error) {
+      console.error('Error Requesting response from Gemini:', error);
+    }
+    let newMessages = [];
+    try {
+      //Saves the user's message to the database
+      newMessages.push(
+        await saveMessageToDatabase(inputMessage, 'me', 'gemini', characterID)
+      );
+      //saves gemini's response to the database
+      newMessages.push(
+        await saveMessageToDatabase(
+          parsedResponse.Message,
+          'gemini',
+          'me',
+          characterID
+        )
+      );
+      //Update the messages usestate
+      setMessages(prev => [...prev, ...newMessages]);
+    } catch (error) {
+      console.error('Error calling saveMessageToDatabase Function:', error);
+    }
   };
 
   // Dynamically change corner radius based on who the message is sent to ("me" vs "gemini")
@@ -109,89 +209,52 @@ const MessagingScreen2 = props => {
     inputMessage,
     sender,
     receiver,
-    characterID,
-    Messages
+    characterID
   ) => {
     //Ammended from https://docs.expo.dev/versions/v51.0.0/sdk/sqlite/
     const db = await expoSqlite.openDatabaseAsync('IndivDB');
-
     let messageID = null;
-
-    await db.withExclusiveTransactionAsync(async () => {
-      //Committing the message to the database
-      const storeMessage = await db.runAsync(
-        `INSERT INTO Messages (Sender, Message, Receiver, Timestamp, Character_ID) 
-  VALUES 
-  ($Sender, $Message, $Receiver, datetime("now", "localtime"), $Character_ID)`,
-        {
-          $Sender: sender,
-          $Message: inputMessage,
-          $Receiver: receiver,
-          $Character_ID: characterID,
-        }
-      );
-      messageID = storeMessage.lastInsertRowId;
-
-      const messageHistory = await db.getFirstAsync(
-        `SELECT Sender, Message, Timestamp, Message_ID, Character_ID 
-  FROM Messages 
-  WHERE Messages.Message_ID = $message_ID`,
-        { $message_ID: messageID }
-      );
-
-      setMessages([...Messages, messageHistory]);
-    });
-    await db.closeAsync();
-
-    setInputMessage('');
-  };
-  React.useEffect(() => {
-    //Ammended from https://ai.google.dev/api/caching
-    //Ammended from https://ai.google.dev/gemini-api/docs/quickstart?lang=node
-    //Ammended from https://aistudio.google.com/app/apps/bundled/genai_sdk_count_tokens?showCode=true&showPreview=true
-    //Includes methdods from https://ai.google.dev/api/generate-content#v1beta.GenerationConfig
-    const ai = new googleGenai.GoogleGenAI({
-      apiKey: 'AIzaSyCmZsHkYYf3BSeQa3W6YMkT1W9CUr5imbQ',
-    });
-    const modelName = 'gemini-2.0-flash';
-    let cacheName;
-
-    async function cachesetup() {
-      const cache = await ai.caches.create({
-        model: modelName,
-        config: {
-          systemInstruction: newprofile,
-        },
+    let loadedMessage;
+    try {
+      await db.withExclusiveTransactionAsync(async () => {
+        //Committing the message to the database
+        const storeMessage = await db.runAsync(
+          `INSERT INTO Messages (Sender, Message, Receiver, Timestamp, Character_ID) 
+    VALUES 
+    ($Sender, $Message, $Receiver, datetime("now", "localtime"), $Character_ID)`,
+          {
+            $Sender: sender,
+            $Message: inputMessage,
+            $Receiver: receiver,
+            $Character_ID: characterID,
+          }
+        );
+        messageID = storeMessage.lastInsertRowId;
+        //Retrieve saved message to confim it was
+        loadedMessage = await db.getFirstAsync(
+          `SELECT Sender, Message, Timestamp, Message_ID, Character_ID 
+    FROM Messages 
+    WHERE Messages.Message_ID = $message_ID`,
+          { $message_ID: messageID }
+        );
       });
-      cacheName = cache.name;
+    } catch (error) {
+      console.error('Error when saving message to database:', error);
+    } finally {
+      await db.closeAsync();
+      return loadedMessage;
     }
-
-    const chat = ai.chats.create({
-      model: 'gemini-2.0-flash',
-      cache: cacheName,
-      history: [
-        {
-          role: 'user',
-          parts: [{ text: 'Hi neko.' }],
-        },
-        {
-          role: 'model',
-          parts: [{ text: 'I am a cat and my name is Neko' }],
-        },
-      ],
-      config: {
-        maxOutputTokens: 500,
-        responseSchema: {},
-      },
-    });
-  });
+  };
+  const isFocused = useIsFocused();
   React.useEffect(() => {
     const handler = async () => {
       try {
+        if (!isFocused) {
+          return;
+        }
         await loadMessagesFromDatabase(
           (params?.passedCharacter ?? defaultProps.passedCharacter)
             ?.Character_ID,
-          messages,
           (params?.passedCharacter ?? defaultProps.passedCharacter)
             ?.Initial_Greeting,
           (params?.passedCharacter ?? defaultProps.passedCharacter)
@@ -202,7 +265,7 @@ const MessagingScreen2 = props => {
       }
     };
     handler();
-  }, []);
+  }, [isFocused]);
 
   return (
     <ScreenContainer
@@ -354,11 +417,6 @@ const MessagingScreen2 = props => {
                       {listData?.Timestamp}
                     </Text>
                   </View>
-                  <LoadingIndicator
-                    color={theme.colors.branding.primary}
-                    size={30}
-                    type={'circleFade'}
-                  />
                 </View>
               </>
             );
@@ -407,7 +465,7 @@ const MessagingScreen2 = props => {
               {...GlobalStyles.TextInputStyles(theme)['Text Input'].props}
               autoCapitalize={'sentences'}
               blurOnSubmit={true}
-              maxLength={1000}
+              maxLength={500}
               multiline={true}
               numberOfLines={2}
               placeholder={'Message'}
@@ -440,18 +498,21 @@ const MessagingScreen2 = props => {
                   let error = null;
                   try {
                     console.log('Start ON_PRESS:0 SET_VARIABLE');
-                    setSender('me');
-                    setReceiver('gemini');
-                    setLoading(true);
+                    setInputMessage('');
                     console.log('Complete ON_PRESS:0 SET_VARIABLE');
                     console.log('Start ON_PRESS:1 CUSTOM_FUNCTION');
-                    await saveMessageToDatabase(
+                    await requestResponseFromGemini(
                       inputMessage,
-                      sender,
-                      receiver,
                       (params?.passedCharacter ?? defaultProps.passedCharacter)
                         ?.Character_ID,
-                      messages
+                      messages,
+                      apiKey,
+                      (params?.passedCharacter ?? defaultProps.passedCharacter)
+                        ?.Name,
+                      (params?.passedCharacter ?? defaultProps.passedCharacter)
+                        ?.Introduction,
+                      (params?.passedCharacter ?? defaultProps.passedCharacter)
+                        ?.In_depth_Details
                     );
                     console.log('Complete ON_PRESS:1 CUSTOM_FUNCTION');
                   } catch (err) {
