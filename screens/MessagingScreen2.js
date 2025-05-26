@@ -138,7 +138,7 @@ const MessagingScreen2 = props => {
   ) => {
     //Ammended from https://ai.google.dev/gemini-api/docs/quickstart?lang=node
     //Includes methdods from https://ai.google.dev/api/generate-content#v1beta.GenerationConfig
-    const instructions = `Your name is ${characterName}. You are ${introduction}, and you are ${inDepthDetails}. 
+    const instructions = `Your name is ${characterName}. Your introduction is ${introduction}, and your character details is ${inDepthDetails}. 
 You always stay in character as ${characterName}. You respond from your own perspective, using "I" when referring to yourself. 
 You never reveal that you are an AI or an assistant. You never break character. 
 Generate a chat message in Json format 'Sender':'gemini' to 'Receiver':'me'.
