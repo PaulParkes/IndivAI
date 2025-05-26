@@ -57,6 +57,8 @@ const MessagingScreen2 = props => {
           parts: [{ text: appMessage.Message }],
         });
       });
+      //The limit of history is 75 messages, so we trim it if it exceeds that
+      if(geminiHistory.length > 74){geminiHistory.splice(2, 1)}
       console.log('Successfully created Gemini Chat History');
       return geminiHistory;
     } catch (error) {
@@ -149,12 +151,20 @@ Always respond with a valid JSON object in this exact format:
 "Receiver": "me"
 }`;
     const ai = new googleGenai.GoogleGenAI({ apiKey: geminiApiKey });
-    geminihistory = generateChatHistory(messages);
+    let geminiHistory = generateChatHistory(messages);
+    try{
+      geminiHistory.push({
+        role: 'user',
+        parts: [{ text: inputMessage }],
+      });
+    } catch(error){
+      console.error('Error adding lastest message to geminiHistory:', error);
+    }
     let response = {};
     try {
       const response = await ai.models.generateContent({
         model: 'gemini-2.0-flash',
-        contents: geminihistory,
+        contents: geminiHistory,
         //Defining the method and size of the response from the GeminiAPI
         config: {
           responseMimeType: 'application/json', //Method
@@ -186,12 +196,7 @@ Always respond with a valid JSON object in this exact format:
       );
       //saves gemini's response to the database
       newMessages.push(
-        await saveMessageToDatabase(
-          parsedResponse.Message,
-          'gemini',
-          'me',
-          characterID
-        )
+        await saveMessageToDatabase(parsedResponse.Message,'gemini','me', characterID)
       );
       //Update the messages usestate
       setMessages(prev => [...prev, ...newMessages]);

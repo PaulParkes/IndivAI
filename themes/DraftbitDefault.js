@@ -115,7 +115,7 @@ export default createTheme({
         },
         strong: {
           default: palettes.Neutral[900],
-          dark: palettes.Neutral[50],
+          dark: palettes.Neutral[950],
         },
         success: {
           default: palettes.Emerald[600],
