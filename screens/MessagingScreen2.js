@@ -57,9 +57,9 @@ const MessagingScreen2 = props => {
     try {
       //Rebuilding chat hitsory in the Gemini "history" object shape
       //console.log('Successfully created Gemini Chat History');
-      return newMessages.map(appMessage => ({
-            role: appMessage.Sender === 'me' ? 'user' : 'model',
-            parts: [{ text: appMessage.Message }],
+      return newMessages.map(({ Sender, Message }) => ({
+            role: Sender === 'me' ? 'user' : 'model',
+            parts: [{ text: Message }],
           })
         );
     } catch (error) {
@@ -170,7 +170,7 @@ const MessagingScreen2 = props => {
               Receiver: { type: 'string' },
             },
             required: ['Sender', 'Message', 'Receiver'],
-          }, //This should contribute to token count so most unnecessary spacing has been removed
+          },
         },
       });
       //console.log(response.text);
@@ -238,7 +238,8 @@ const MessagingScreen2 = props => {
       console.error('Error when saving message to database:', error);
     } finally {
       await db.closeAsync();
-      return loadedMessage;
+      if(loadedMessage){return loadedMessage;}
+      else{return {}}
     }
   };
   const isFocused = useIsFocused();
@@ -268,13 +269,14 @@ const MessagingScreen2 = props => {
       scrollable={false}
       hasSafeArea={true}
       hasTopSafeArea={false}
+      style={StyleSheet.applyWidth( { backgroundColor: 'rgb(252, 252, 252)', padding: 10 }, dimensions.width)}
     >
       <View
         style={StyleSheet.applyWidth(
           {
             alignItems: 'center',
             flexDirection: 'row',
-            height: '10%',
+            height: '0.05',
             margin: 10,
           },
           dimensions.width
@@ -305,7 +307,7 @@ const MessagingScreen2 = props => {
         />
         <View
           style={StyleSheet.applyWidth(
-            { alignItems: 'center', flex: 1, justifyContent: 'center' },
+            { alignItems: 'center', flex: 1, flexDirection: 'row', padding: 10,},
             dimensions.width
           )}
         >
@@ -361,7 +363,7 @@ const MessagingScreen2 = props => {
                 <View
                   style={StyleSheet.applyWidth(
                     {
-                      alignItems: 'flex-start',
+                      alignItems: messageAlignment(listData),
                       flexDirection: 'column',
                       justifyContent: 'center',
                       marginBottom: 5,
@@ -374,7 +376,7 @@ const MessagingScreen2 = props => {
                   <View
                     style={StyleSheet.applyWidth(
                       {
-                        alignSelf: messageAlignment(listData),
+                        //alignSelf: messageAlignment(listData),
                         borderBottomLeftRadius: leftCornerRadius(listData),
                         borderBottomRightRadius: rightCornerRadius(listData),
                         borderColor: 'rgb(0, 0, 0)',
@@ -420,13 +422,14 @@ const MessagingScreen2 = props => {
           snapToAlignment={'start'}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
-          style={StyleSheet.applyWidth({ flex: 0.8 }, dimensions.width)}
+          style={StyleSheet.applyWidth({ flex: 0.8}, dimensions.width)}
         />
         <View
           style={StyleSheet.applyWidth(
             {
               alignItems: 'center',
-              flex: 0.1,
+              flex: 0.2,
+              backgroundColor: 'rgb(255, 255, 255)',
               flexDirection: 'row',
               justifyContent: 'center',
             },
@@ -438,12 +441,11 @@ const MessagingScreen2 = props => {
               {
                 alignItems: 'center',
                 alignSelf: 'auto',
-                backgroundColor: 'rgb(252, 252, 252)',
+                backgroundColor: 'rgb(255, 255, 255)',
                 borderRadius: 20,
                 borderWidth: 5,
                 flex: 0.8,
                 flexDirection: 'row',
-                justifyContent: 'center',
               },
               dimensions.width
             )}

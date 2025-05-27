@@ -189,7 +189,7 @@ const CharacterCreationScreen = props => {
       hasSafeArea={true}
       scrollable={false}
       style={StyleSheet.applyWidth(
-        { borderRadius: 15, padding: 10 },
+        { backgroundColor: 'rgb(252, 252, 252)', borderRadius: 15, padding: 10 },
         dimensions.width
       )}
     >

@@ -69,7 +69,7 @@ const GenerationResultsScreen = props => {
               height: 1024,
               width: 1024,
               steps: 29,
-              samples: 1,
+              samples: 6,
             }),
           }
         );
@@ -99,7 +99,11 @@ const GenerationResultsScreen = props => {
   }, []);
 
   return (
-    <ScreenContainer scrollable={false} hasSafeArea={true}>
+    <ScreenContainer 
+      scrollable={false} 
+      hasSafeArea={true}
+      style={StyleSheet.applyWidth({ backgroundColor: 'rgb(252, 252, 252)' }, dimensions.width)}
+    >
       {/* Background */}
       <View
         pointerEvents={'box-none'}

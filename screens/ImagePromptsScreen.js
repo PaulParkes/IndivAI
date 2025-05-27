@@ -64,7 +64,7 @@ const ImagePromptsScreen = props => {
     <ScreenContainer
       scrollable={false}
       hasSafeArea={true}
-      style={StyleSheet.applyWidth({ padding: 10 }, dimensions.width)}
+      style={StyleSheet.applyWidth({ backgroundColor: 'rgb(252, 252, 252)', padding: 10 }, dimensions.width)}
     >
       <SimpleStyleKeyboardAwareScrollView
         enableResetScrollToCoords={false}
@@ -108,8 +108,8 @@ const ImagePromptsScreen = props => {
         >
           <Picker
             autoDismissKeyboard={true}
-            dropDownBackgroundColor={theme.colors.background.base}
-            dropDownBorderColor={theme.colors.border.base}
+            dropDownBackgroundColor={'rgb(255, 255, 255)'}
+            dropDownBorderColor={'rgb(0, 0, 0)'}
             dropDownBorderRadius={8}
             dropDownBorderWidth={1}
             dropDownTextColor={theme.colors.text.strong}
@@ -243,15 +243,15 @@ const ImagePromptsScreen = props => {
           </Text>
           <MultiSelectPicker
             autoDismissKeyboard={true}
-            dropDownBackgroundColor={theme.colors.background.base}
-            dropDownBorderColor={theme.colors.border.base}
+            dropDownBackgroundColor={'rgb(255, 255, 255)'}//theme.colors.background.base
+            dropDownBorderColor={'rgb(0, 0, 0)'}//theme.colors.border.base
             dropDownBorderRadius={8}
             dropDownBorderWidth={1}
             dropDownTextColor={theme.colors.text.strong}
             iconSize={24}
             leftIconMode={'inset'}
             onValueChange={newMultiSelectPickerValue => {
-              const pickerValue = newMultiSelectPickerValue;
+              //const pickerValue = newMultiSelectPickerValue;
               try {
                 setPromptExampleValue(newMultiSelectPickerValue);
               } catch (err) {

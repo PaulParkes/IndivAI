@@ -115,8 +115,15 @@ const App = () => {
   //
   // The Drawer snippet that relies on useSafeAreaFrame: https://github.com/react-navigation/react-navigation/blob/bddcc44ab0e0ad5630f7ee0feb69496412a00217/packages/drawer/src/views/DrawerView.tsx#L112
   // Issue regarding broken useSafeAreaFrame: https://github.com/th3rdwave/react-native-safe-area-context/issues/184
-  const SafeAreaFrameContextProvider =
-    Platform.OS === 'web' ? SafeAreaFrameContext.Provider : React.Fragment;
+  // Silent_o changed this. 
+  // Expo Go loggged the 'Error' 'Warning: Invalid prop `value` supplied to `React.Fragment`. React.Fragment can only have `key` and `children` props.', 
+  // maybe due to a misshandled dependency somewhere. 
+  // Initially the code was passing React.Fragment(<>...</>) the 'value' prop as well instead of just wrapping the UI elements. 
+  // This is unnecessary for android/ios and causes unexpected behavior of resultant screens such as missing colours of text.
+  const SafeAreaFrameContextProvider = ({ children, value }) =>
+    Platform.OS === 'web' ? (
+      <SafeAreaFrameContext.Provider value={value}>{children}</SafeAreaFrameContext.Provider>
+    ) : <>{children}</>;
 
   const isReady = areAssetsCached && fontsLoaded;
   const onLayoutRootView = React.useCallback(async () => {

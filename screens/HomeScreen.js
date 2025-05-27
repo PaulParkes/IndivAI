@@ -99,41 +99,41 @@ const HomeScreen = props => {
     try {
       //Create Tables
       await db.execAsync(`
-PRAGMA foreign_keys = ON;
+      PRAGMA foreign_keys = ON;
 
---This table stores all of messages sent and received from Gemini AI
-CREATE TABLE IF NOT EXISTS Messages 
-(
-    Message_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
-    Sender TEXT NOT NULL, 
-    Receiver TEXT NOT NULL,
-    Character_ID INTEGER,
-    Message TEXT,
-    Timestamp TEXT,
-    FOREIGN KEY (Character_ID) REFERENCES Characters(Character_ID) ON DELETE CASCADE
-);
+      --This table stores all of messages sent to and received from Gemini AI
+      CREATE TABLE IF NOT EXISTS Messages 
+      (
+          Message_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+          Sender TEXT NOT NULL, 
+          Receiver TEXT NOT NULL,
+          Character_ID INTEGER,
+          Message TEXT,
+          Timestamp TEXT,
+          FOREIGN KEY (Character_ID) REFERENCES Characters(Character_ID) ON DELETE CASCADE
+      );
 
---This table store all Characters created through the app
-CREATE TABLE IF NOT EXISTS Characters  
-(
-    Character_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
-    Name TEXT,
-    Introduction TEXT, 
-    Initial_Greeting TEXT,
-    In_depth_Details TEXT,
-    Image_ID INTEGER,
-    FOREIGN KEY (Image_ID) REFERENCES Image_file_paths(Image_ID) ON DELETE SET NULL
-);
+      --This table store all Characters created through the app
+      CREATE TABLE IF NOT EXISTS Characters  
+      (
+          Character_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+          Name TEXT,
+          Introduction TEXT, 
+          Initial_Greeting TEXT,
+          In_depth_Details TEXT,
+          Image_ID INTEGER,
+          FOREIGN KEY (Image_ID) REFERENCES Image_file_paths(Image_ID) ON DELETE SET NULL
+      );
 
---This table stores file paths to images created in the app
-CREATE TABLE IF NOT EXISTS Image_file_paths
-(
-    Image_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
-    Image_file_path TEXT 
-);
+      --This table stores file paths to images created in the app
+      CREATE TABLE IF NOT EXISTS Image_file_paths
+      (
+          Image_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+          Image_file_path TEXT 
+      );
 
-CREATE INDEX IF NOT EXISTS idx_Message_History ON Messages(Character_ID, Timestamp);
-`);
+      CREATE INDEX IF NOT EXISTS idx_Message_History ON Messages(Character_ID, Timestamp);`
+      );
     } catch (error) {
       log.console(error);
     } finally {
@@ -166,7 +166,7 @@ CREATE INDEX IF NOT EXISTS idx_Message_History ON Messages(Character_ID, Timesta
       hasTopSafeArea={false}
       scrollable={false}
       style={StyleSheet.applyWidth(
-        { borderRadius: 15, padding: 5 },
+        { backgroundColor: 'rgb(252, 252, 252)', borderRadius: 15, padding: 5 },
         dimensions.width
       )}
     >
