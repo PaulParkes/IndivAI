@@ -47,28 +47,26 @@ const MessagingScreen2 = props => {
   const [loading, setLoading] = React.useState(false);
   const [messages, setMessages] = React.useState([]);
   const generateChatHistory = messages => {
-    let geminiHistory = [];
+    let newMessages = [...messages];
+    limit = 72
+    preserved = 2 //The first two messages are the introduction and initial greeting
+    //The set limit of history is 75 messages, so we trim the array if it exceeds that
+    if(newMessages.length > limit) {
+      newMessages.splice(preserved, newMessages.length - limit); 
+    }
     try {
-      //Rebuilding chat hitsory in the Gemini "chat" method "history" object shape
-      messages.forEach(appMessage => {
-        const setRole = appMessage.Sender === 'me' ? 'user' : 'model';
-        geminiHistory.push({
-          role: setRole,
-          parts: [{ text: appMessage.Message }],
-        });
-      });
-      //The limit of history is 75 messages, so we trim it if it exceeds that
-      if(geminiHistory.length > 74){geminiHistory.splice(2, 1)}
-      console.log('Successfully created Gemini Chat History');
-      return geminiHistory;
+      //Rebuilding chat hitsory in the Gemini "history" object shape
+      //console.log('Successfully created Gemini Chat History');
+      return newMessages.map(appMessage => ({
+            role: appMessage.Sender === 'me' ? 'user' : 'model',
+            parts: [{ text: appMessage.Message }],
+          })
+        );
     } catch (error) {
-      console.error(
-        'Error whilst transforming messages to geminiHistory:',
-        error
-      );
+      console.error('Error whilst transforming messages to geminiHistory:', error);
+      return [];
     }
   };
-
   // Dynamically change corner radius based on who the message is sent to ("me" vs "gemini")
   const leftCornerRadius = item => {
     return item.Receiver === 'me' ? 5 : 20;
@@ -141,30 +139,23 @@ const MessagingScreen2 = props => {
     //Ammended from https://ai.google.dev/gemini-api/docs/quickstart?lang=node
     //Includes methdods from https://ai.google.dev/api/generate-content#v1beta.GenerationConfig
     const instructions = `Your name is ${characterName}. Your introduction is ${introduction}, and your character details is ${inDepthDetails}. 
-You always stay in character as ${characterName}. You respond from your own perspective, using "I" when referring to yourself. 
-You never reveal that you are an AI or an assistant. You never break character. 
-Generate a chat message in Json format 'Sender':'gemini' to 'Receiver':'me'.
-Always respond with a valid JSON object in this exact format:
-{
-"Sender": "gemini",
-"Message": "<your in-character reply>",
-"Receiver": "me"
-}`;
+    You always stay in character as ${characterName}. You respond from your own perspective, using "I" when referring to yourself. 
+    You never reveal that you are an AI or an assistant. You never break character. 
+    Generate a chat message in Json format 'Sender':'gemini' to 'Receiver':'me'.
+    Always respond with a valid JSON object in this exact format:
+    {
+    "Sender": "gemini",
+    "Message": "<your in-character reply>",
+    "Receiver": "me"
+    }`;
     const ai = new googleGenai.GoogleGenAI({ apiKey: geminiApiKey });
-    let geminiHistory = generateChatHistory(messages);
-    try{
-      geminiHistory.push({
-        role: 'user',
-        parts: [{ text: inputMessage }],
-      });
-    } catch(error){
-      console.error('Error adding lastest message to geminiHistory:', error);
-    }
-    let response = {};
     try {
       const response = await ai.models.generateContent({
         model: 'gemini-2.0-flash',
-        contents: geminiHistory,
+        contents: [ 
+          ...generateChatHistory(messages), 
+          { role: 'user', parts: [{ text: inputMessage }] }
+        ],
         //Defining the method and size of the response from the GeminiAPI
         config: {
           responseMimeType: 'application/json', //Method
@@ -185,7 +176,7 @@ Always respond with a valid JSON object in this exact format:
       //console.log(response.text);
       parsedResponse = JSON.parse(response.text);
       console.log(parsedResponse);
-    } catch (error) {
+    } catch(error) {
       console.error('Error Requesting response from Gemini:', error);
     }
     let newMessages = [];
@@ -225,8 +216,8 @@ Always respond with a valid JSON object in this exact format:
         //Committing the message to the database
         const storeMessage = await db.runAsync(
           `INSERT INTO Messages (Sender, Message, Receiver, Timestamp, Character_ID) 
-    VALUES 
-    ($Sender, $Message, $Receiver, datetime("now", "localtime"), $Character_ID)`,
+          VALUES 
+          ($Sender, $Message, $Receiver, datetime("now", "localtime"), $Character_ID)`,
           {
             $Sender: sender,
             $Message: inputMessage,
@@ -238,8 +229,8 @@ Always respond with a valid JSON object in this exact format:
         //Retrieve saved message to confim it was
         loadedMessage = await db.getFirstAsync(
           `SELECT Sender, Message, Timestamp, Message_ID, Character_ID 
-    FROM Messages 
-    WHERE Messages.Message_ID = $message_ID`,
+          FROM Messages 
+          WHERE Messages.Message_ID = $message_ID`,
           { $message_ID: messageID }
         );
       });
