@@ -495,9 +495,7 @@ const MessagingScreen2 = props => {
                   console.log('Icon Button ON_PRESS Start');
                   let error = null;
                   try {
-                    console.log('Start ON_PRESS:0 SET_VARIABLE');
                     setInputMessage('');
-                    console.log('Complete ON_PRESS:0 SET_VARIABLE');
                     console.log('Start ON_PRESS:1 CUSTOM_FUNCTION');
                     await requestResponseFromGemini(
                       inputMessage,

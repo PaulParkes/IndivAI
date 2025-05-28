@@ -74,8 +74,8 @@ const HomeScreen = props => {
       await db.withExclusiveTransactionAsync(async () => {
         const characterSummaries = await db.getAllAsync(
           `SELECT Name, Character_ID, Initial_Greeting, Introduction, In_depth_Details, Image_file_path 
-    FROM Characters LEFT JOIN Image_file_paths 
-    ON Characters.Image_ID = Image_file_paths.Image_ID`
+          FROM Characters LEFT JOIN Image_file_paths 
+          ON Characters.Image_ID = Image_file_paths.Image_ID`
         );
 
         if (characterSummaries) {
@@ -86,7 +86,7 @@ const HomeScreen = props => {
         }
       });
     } catch (error) {
-      console.log('Failed to retrieve characters', error);
+      console.error('Failed to retrieve characters', error);
     } finally {
       await db.closeAsync();
     }
@@ -145,12 +145,8 @@ const HomeScreen = props => {
       console.log('Screen ON_MOUNT Start');
       let error = null;
       try {
-        console.log('Start ON_MOUNT:0 CUSTOM_FUNCTION');
         await sqliteDatabaseSetup();
-        console.log('Complete ON_MOUNT:0 CUSTOM_FUNCTION');
-        console.log('Start ON_MOUNT:1 CUSTOM_FUNCTION');
         await fetchCharactersFromDatabase();
-        console.log('Complete ON_MOUNT:1 CUSTOM_FUNCTION');
       } catch (err) {
         console.error(err);
         error = err.message ?? err;
@@ -484,18 +480,10 @@ const HomeScreen = props => {
                   console.log('Delete character ON_PRESS Start');
                   let error = null;
                   try {
-                    console.log('Start ON_PRESS:0 CUSTOM_FUNCTION');
                     await deleteCharacterFromDatabase(selectedCharacter);
-                    console.log('Complete ON_PRESS:0 CUSTOM_FUNCTION');
-                    console.log('Start ON_PRESS:1 CUSTOM_FUNCTION');
                     await fetchCharactersFromDatabase();
-                    console.log('Complete ON_PRESS:1 CUSTOM_FUNCTION');
-                    console.log('Start ON_PRESS:2 CONSOLE_LOG');
                     console.log(selectedCharacter?.Name);
-                    console.log('Complete ON_PRESS:2 CONSOLE_LOG');
-                    console.log('Start ON_PRESS:3 SET_VARIABLE');
                     setOpenModal(false);
-                    console.log('Complete ON_PRESS:3 SET_VARIABLE');
                   } catch (err) {
                     console.error(err);
                     error = err.message ?? err;
