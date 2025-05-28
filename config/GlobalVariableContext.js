@@ -3,7 +3,7 @@ import { View, ActivityIndicator } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const DeviceVariables = { imageIndex: 0, __env__: 'Development' };
+export const DeviceVariables = { imageIndex: 0, __env__: 'Production' };
 export const AppVariables = { '.': 0 };
 const GlobalVariableContext = React.createContext();
 const GlobalVariableUpdater = React.createContext();
