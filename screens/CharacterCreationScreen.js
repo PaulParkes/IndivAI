@@ -41,7 +41,8 @@ const CharacterCreationScreen = props => {
   });
   const [openModal, setOpenModal] = React.useState(false);
   const [passedImage, setPassedImage] = React.useState(' ');
-  const [selectedCharacter, setSelectedCharacter] = React.useState({});
+  // const [selectedCharacter, setSelectedCharacter] = React.useState({});
+  // Handles the async control flow for saving the character and image
   const asyncControl = async (
     Variables,
     setGlobalVariableValue,
@@ -83,7 +84,7 @@ const CharacterCreationScreen = props => {
           );
 
           imageID = storeImage.lastInsertRowId;
-          console.log('Insetion of the file path was successful');
+          console.log('Insertion of the file path was successful');
         } catch (error) {
           console.errror(
             'Failed to insert image Uri into (Image_file_paths)',
@@ -105,7 +106,7 @@ const CharacterCreationScreen = props => {
             $Image_ID: imageID,
           }
         );
-        console.log('Insetion of the character was successful');
+        console.log('Insertion of the character was successful');
       } catch (error) {
         console.error('Failed to insert character into (Characters)', error);
       }

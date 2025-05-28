@@ -69,7 +69,7 @@ const MessagingScreen2 = props => {
   };
   // Dynamically change corner radius based on who the message is sent to ("me" vs "gemini")
   const leftCornerRadius = item => {
-    return item.Receiver === 'me' ? 5 : 20;
+    return item.Sender === 'me' ? 20 : 5;
   };
 
   const loadMessagesFromDatabase = async (
@@ -124,7 +124,7 @@ const MessagingScreen2 = props => {
 
   // Dynamically change message alignment on the screen based on who the message is sent to ("me" vs "gemini")
   const messageAlignment = item => {
-    return item.Receiver === 'me' ? 'flex-start' : 'flex-end';
+    return item.Sender === 'me' ? 'flex-end' : 'flex-start';
   };
 
   const requestResponseFromGemini = async (
@@ -198,7 +198,7 @@ const MessagingScreen2 = props => {
 
   // Dynamically change corner radius based on who the message is sent to ("me" vs "gemini")
   const rightCornerRadius = item => {
-    return item.Receiver === 'me' ? 20 : 5;
+    return item.Sender === 'me' ? 5 : 20;
   };
 
   const saveMessageToDatabase = async (

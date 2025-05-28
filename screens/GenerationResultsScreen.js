@@ -444,7 +444,7 @@ const GenerationResultsScreen = props => {
                     dimensions.width
                   )}
                 >
-                  {/* Close Enlarge Image Modal */}
+                  {/* Close Enlarged Image Modal */}
                   <IconButton
                     onPress={() => {
                       try {
@@ -498,15 +498,11 @@ const GenerationResultsScreen = props => {
                       console.log('Confirm selection ON_PRESS Start');
                       let error = null;
                       try {
-                        console.log('Start ON_PRESS:0 SET_VARIABLE');
                         setOpenModal(false);
-                        console.log('Complete ON_PRESS:0 SET_VARIABLE');
-                        console.log('Start ON_PRESS:1 NAVIGATE');
                         navigation.navigate('StackNavigator', {
                           screen: 'CharacterCreationScreen',
                           params: { Image_file_path: selectedImage },
                         });
-                        console.log('Complete ON_PRESS:1 NAVIGATE');
                       } catch (err) {
                         console.error(err);
                         error = err.message ?? err;
