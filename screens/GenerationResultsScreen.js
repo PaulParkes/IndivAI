@@ -1,4 +1,5 @@
 import React from 'react';
+import { STABILITY_API_KEY } from '@env';
 import {
   Button,
   ExpoImage,
@@ -46,7 +47,7 @@ const GenerationResultsScreen = props => {
     //Ammended from https://platform.stability.ai/docs/api-reference#tag/SDXL-1.0-and-SD1.6/operation/textToImage
     const engineId = 'stable-diffusion-v1-6';
     const apiHost = 'https://api.stability.ai';
-    const apiKey = 'sk-qlbJS92awR3LyLLPD5TevHuT02ztHRFABGYjxRc8NMtxUQeh';
+    const apiKey = STABILITY_API_KEY;
     if (prompts) {
       try {
         const response = await fetch(

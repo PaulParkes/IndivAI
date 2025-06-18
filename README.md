@@ -1,3 +1,26 @@
+# Welcome to the Indiv AI Character chat app (dev build) (Android)
+This was a project undertaken for my undergraduate Third Year Dissertation containing a simple suite of restful Apis
+Namely: Gemini AI and Stability AI.
+
+The messaging app at its core consists of a simple character creation loop and a chat feature, 
+both require you to set up your own Api keys with their respecting service.
+
+- [Gemini AI](https://aistudio.google.com/welcome)
+- [Stability AI](https://platform.stability.ai/)
+
+Once you have your Api keys create a '.env' file in the root directory conatining these two variables
+
+- GEMINI_API_KEY = Your_ApiKey
+- STABILITY_API_KEY = Your_ApiKey
+
+The app is built off of React native SDK 51 so refer to this version for any documents or packages you would like to add to your copy of the software. The project was built as a smart phone application so it will not run as expected in a web browser, for example you cannot save characters as is in a web browser.
+
+There is no 'backend' per say for this Application save for the connections to the restful Api's.
+
+Directly Below is draftbit's tutorial on how to get the project up and running locally in visual studio code. (Drafbit is a low - no code app building software. 
+In this project it was mainly utilised for its visual interface building enviornment.)
+If you have experience in Android studio's emulators those work fine once you build it, however Expo Go (Version 51) is simpler to setup quickly. To build the app you need a React Native Expo account, which the tutorial breifly directs you to the relevant docs.
+
 # Welcome to your Draftbit app!
 
 This `README` is designed to help you get your Draftbit app running locally. Read
@@ -8,9 +31,6 @@ do not hesitate to post in [Community](https://community.draftbit.com).
 > computer's **command line**. If you're unsure of what this is, please read
 > [this](https://tutorial.djangogirls.org/en/intro_to_command_line/) guide
 > before moving on.
-
-Remember, at any point you can go back to [build.draftbit.com](https://build.draftbit.com) and continue building your app
-there!
 
 ## Requirements
 
@@ -138,29 +158,11 @@ should refer to Expo's documentation on [debugging
 Javascript](https://docs.expo.dev/debugging/runtime-issues).
 
 ## FAQ
-
-- _How can I add my code to GitHub?_
-
-  Pushing your code to GitHub is easy! Follow the information
-  [guide](https://help.github.com/en/github/getting-started-with-github/create-a-repo)
-  to create your repository and commit your project code.
-
 - _How do I build a binary for the App and Play store?_
 
   Expo published an [excellent
   guide](https://docs.expo.dev/build/setup/) for
   deploying to the Apple App Store and the Google Play Store.
-
-- _What/where is the license for this code?_
-
-  There's no license by default, but if you create a GitHub repository for your
-  project code, for example, [adding a license is
-  easy](https://help.github.com/en/github/building-a-strong-community/adding-a-license-to-a-repository).
-
-- _Can I run Expo web with this?_
-
-  Of course! See [this](https://docs.expo.dev/workflow/web/) guide by Expo for running your React Native app in
-  a web browser.
 
 - _What libraries does this code depend on?_
 
