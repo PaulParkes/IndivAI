@@ -13,7 +13,7 @@ Once you have your Api keys create a '.env' file in the root directory conatinin
 - GEMINI_API_KEY = Your_ApiKey
 - STABILITY_API_KEY = Your_ApiKey
 
-The app is built off of React native SDK 51 so refer to this version for any documents or packages you would like to add to your copy of the software. The project was built as a smart phone application so it will not run as expected in a web browser, for example you cannot save characters as is in a web browser.
+The app is built off of React native SDK 51 so refer to this version for any documents or packages you would like to add to your copy of the software. The project was built as a smart phone application so it will not run as expected in a web browser, for example you cannot save characters in a web browser.
 
 There is no 'backend' per say for this Application save for the connections to the restful Api's.
 

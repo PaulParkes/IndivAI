@@ -1,0 +1,422 @@
+{
+    "@draftbit/ui@51.2.8": {
+        "licenses": "MIT",
+        "repository": "https://github.com/draftbit/react-native-jigsaw",
+        "licenseUrl": "https://github.com/draftbit/react-native-jigsaw/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "@expo/dev-server@0.5.5": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "@expo/html-elements@0.5.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "@expo/metro-runtime@3.2.3": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "@expo/vector-icons@14.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/vector-icons",
+        "licenseUrl": "https://github.com/expo/vector-icons/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "@google/genai@0.12.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/googleapis/js-genai",
+        "licenseUrl": "https://github.com/googleapis/js-genai/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "@react-native-async-storage/async-storage@1.23.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-native-async-storage/async-storage",
+        "licenseUrl": "https://github.com/react-native-async-storage/async-storage/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "@react-native-community/datetimepicker@8.0.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-native-community/datetimepicker",
+        "licenseUrl": "https://github.com/react-native-community/datetimepicker/raw/master/LICENSE.md",
+        "parents": "indivai-app"
+    },
+    "@react-native-community/netinfo@11.3.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-native-netinfo/react-native-netinfo",
+        "licenseUrl": "https://github.com/react-native-netinfo/react-native-netinfo/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "@react-native-community/slider@4.5.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/callstack/react-native-slider",
+        "licenseUrl": "https://github.com/callstack/react-native-slider",
+        "parents": "indivai-app"
+    },
+    "@react-native-picker/picker@2.7.5": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-native-picker/picker",
+        "licenseUrl": "https://github.com/react-native-picker/picker/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "@react-navigation/bottom-tabs@6.6.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-navigation/react-navigation",
+        "licenseUrl": "https://github.com/react-navigation/react-navigation/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "@react-navigation/drawer@6.7.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-navigation/react-navigation",
+        "licenseUrl": "https://github.com/react-navigation/react-navigation/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "@react-navigation/native@6.1.18": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-navigation/react-navigation",
+        "licenseUrl": "https://github.com/react-navigation/react-navigation/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "@react-navigation/stack@6.4.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-navigation/react-navigation",
+        "licenseUrl": "https://github.com/react-navigation/react-navigation/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "@shopify/flash-list@1.6.4": {
+        "licenses": "MIT",
+        "repository": "https://github.com/Shopify/flash-list",
+        "licenseUrl": "https://github.com/Shopify/flash-list/raw/master/LICENSE.md",
+        "parents": "indivai-app"
+    },
+    "@shopify/mime-types@2.3.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/Shopify/quilt",
+        "licenseUrl": "https://github.com/Shopify/quilt",
+        "parents": "indivai-app"
+    },
+    "date-fns@2.30.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/date-fns/date-fns",
+        "licenseUrl": "https://github.com/date-fns/date-fns/raw/master/LICENSE.md",
+        "parents": "indivai-app"
+    },
+    "dayjs@1.11.13": {
+        "licenses": "MIT",
+        "repository": "https://github.com/iamkun/dayjs",
+        "licenseUrl": "https://github.com/iamkun/dayjs/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "expo-asset@10.0.10": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-av@14.0.7": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-blur@13.0.3": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-build-properties@0.12.5": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-camera@15.0.16": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-constants@16.0.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-crypto@13.0.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-dev-client@4.0.29": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-device@6.0.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-document-picker@12.0.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-file-system@17.0.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-font@12.0.10": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-image-loader@4.7.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-image-picker@15.0.7": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-image@1.13.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-linear-gradient@13.0.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-linking@6.3.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-notifications@0.28.19": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-router@3.5.24": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-screen-orientation@7.0.5": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-sharing@12.0.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-splash-screen@0.27.7": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-sqlite@14.0.6": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-status-bar@1.12.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-system-ui@3.0.7": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo-web-browser@13.0.3": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "expo@51.0.39": {
+        "licenses": "MIT",
+        "repository": "https://github.com/expo/expo",
+        "licenseUrl": "https://github.com/expo/expo",
+        "parents": "indivai-app"
+    },
+    "lottie-react-native@6.7.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/react-native-community/lottie-react-native",
+        "licenseUrl": "https://github.com/react-native-community/lottie-react-native",
+        "parents": "indivai-app"
+    },
+    "patch-package@6.5.1": {
+        "licenses": "MIT",
+        "repository": "github:ds300/patch-package",
+        "licenseUrl": "github:ds300/patch-package",
+        "parents": "indivai-app"
+    },
+    "postinstall-postinstall@2.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/ds300/postinstall-postinstall",
+        "licenseUrl": "https://github.com/ds300/postinstall-postinstall/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "react-dom@18.2.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/facebook/react",
+        "licenseUrl": "https://github.com/facebook/react/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "react-fetch-hook@1.9.5": {
+        "licenses": "MIT",
+        "repository": "https://github.com/ilyalesik/react-fetch-hook",
+        "licenseUrl": "https://github.com/ilyalesik/react-fetch-hook/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "react-native-date-picker@5.0.12": {
+        "licenses": "MIT",
+        "repository": "https://github.com/henninghall/react-native-date-picker",
+        "licenseUrl": "https://github.com/henninghall/react-native-date-picker/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "react-native-gesture-handler@2.16.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/software-mansion/react-native-gesture-handler",
+        "licenseUrl": "https://github.com/software-mansion/react-native-gesture-handler/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "react-native-get-random-values@1.11.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/LinusU/react-native-get-random-values",
+        "licenseUrl": "https://github.com/LinusU/react-native-get-random-values/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "react-native-keyboard-aware-scroll-view@0.9.5": {
+        "licenses": "MIT",
+        "repository": "https://github.com/APSL/react-native-keyboard-aware-scroll-view",
+        "licenseUrl": "https://github.com/APSL/react-native-keyboard-aware-scroll-view/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "react-native-maps@1.14.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-native-maps/react-native-maps",
+        "licenseUrl": "https://github.com/react-native-maps/react-native-maps/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "react-native-modal-datetime-picker@18.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/mmazzarolo/react-native-modal-datetime-picker",
+        "licenseUrl": "https://github.com/mmazzarolo/react-native-modal-datetime-picker/raw/master/LICENSE.md",
+        "parents": "indivai-app"
+    },
+    "react-native-pager-view@6.3.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/callstack/react-native-pager-view",
+        "licenseUrl": "https://github.com/callstack/react-native-pager-view/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "react-native-reanimated@3.10.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/software-mansion/react-native-reanimated",
+        "licenseUrl": "https://github.com/software-mansion/react-native-reanimated/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "react-native-safe-area-context@4.10.5": {
+        "licenses": "MIT",
+        "repository": "https://github.com/th3rdwave/react-native-safe-area-context",
+        "licenseUrl": "https://github.com/th3rdwave/react-native-safe-area-context/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "react-native-screens@3.31.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/software-mansion/react-native-screens",
+        "licenseUrl": "https://github.com/software-mansion/react-native-screens/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "react-native-svg@15.2.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-native-community/react-native-svg",
+        "licenseUrl": "https://github.com/react-native-community/react-native-svg/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "react-native-typography@1.4.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/hectahertz/react-native-typography",
+        "licenseUrl": "https://github.com/hectahertz/react-native-typography/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "react-native-web-swiper@2.2.4": {
+        "licenses": "MIT",
+        "repository": "https://github.com/reactrondev/react-native-web-swiper",
+        "licenseUrl": "https://github.com/reactrondev/react-native-web-swiper",
+        "parents": "indivai-app"
+    },
+    "react-native-web@0.19.13": {
+        "licenses": "MIT",
+        "repository": "https://github.com/necolas/react-native-web",
+        "licenseUrl": "https://github.com/necolas/react-native-web/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "react-native-webview@13.8.6": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-native-webview/react-native-webview",
+        "licenseUrl": "https://github.com/react-native-webview/react-native-webview/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "react-native@0.74.5": {
+        "licenses": "MIT",
+        "repository": "https://github.com/facebook/react-native",
+        "licenseUrl": "https://github.com/facebook/react-native/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "react-query@3.39.3": {
+        "licenses": "MIT",
+        "repository": "https://github.com/tannerlinsley/react-query",
+        "licenseUrl": "https://github.com/tannerlinsley/react-query/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "react-request@3.2.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/jamesplease/react-request",
+        "licenseUrl": "https://github.com/jamesplease/react-request/raw/master/LICENSE",
+        "parents": "indivai-app"
+    },
+    "react@18.2.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/facebook/react",
+        "licenseUrl": "https://github.com/facebook/react/raw/master/LICENSE",
+        "parents": "indivai-app"
+    }
+}
