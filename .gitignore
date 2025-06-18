@@ -6,7 +6,8 @@ npm-debug.*
 *.p12
 *.key
 *.mobileprovision
-*.orig.*
+*.orig.
+*.apk*
 web-build/
 web-report/
 .DS_Store
