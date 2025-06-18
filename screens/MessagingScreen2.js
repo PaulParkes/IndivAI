@@ -1,4 +1,5 @@
 import React from 'react';
+import { GEMINI_API_KEY } from '@env';
 import {
   ExpoImage,
   IconButton,
@@ -41,7 +42,7 @@ const MessagingScreen2 = props => {
   const Variables = Constants;
   const [History, setHistory] = React.useState([]);
   const [apiKey, setApiKey] = React.useState(
-    'AIzaSyCmZsHkYYf3BSeQa3W6YMkT1W9CUr5imbQ'
+    GEMINI_API_KEY
   );
   const [inputMessage, setInputMessage] = React.useState('');
   const [loading, setLoading] = React.useState(false);
