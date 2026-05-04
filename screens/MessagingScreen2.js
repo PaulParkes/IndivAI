@@ -152,7 +152,7 @@ const MessagingScreen2 = props => {
     const ai = new googleGenai.GoogleGenAI({ apiKey: geminiApiKey });
     try {
       const response = await ai.models.generateContent({
-        model: 'gemini-2.0-flash',
+        model: 'gemini-2.5-flash',
         contents: [ 
           ...generateChatHistory(messages), 
           { role: 'user', parts: [{ text: inputMessage }] }
