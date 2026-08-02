@@ -44,8 +44,8 @@ const GenerationResultsScreen = props => {
   const [openModal, setOpenModal] = React.useState(false);
   const [selectedImage, setSelectedImage] = React.useState('');
   const generateImages = async prompts => {
-    //Ammended from https://platform.stability.ai/docs/api-reference#tag/SDXL-1.0-and-SD1.6/operation/textToImage
-    const engineId = 'stable-diffusion-v1-6';
+    //Ammended from https://platform.stability.ai/docs/api-reference#tag/SDXL-1.0/operation/textToImage
+    const engineId = 'stable-diffusion-xl-1024-v1-0';
     const apiHost = 'https://api.stability.ai';
     const apiKey = STABILITY_API_KEY;
     if (prompts) {
@@ -70,7 +70,7 @@ const GenerationResultsScreen = props => {
               height: 1024,
               width: 1024,
               steps: 29,
-              samples: 6,
+              samples: 1,
             }),
           }
         );
