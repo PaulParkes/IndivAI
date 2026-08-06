@@ -47,11 +47,14 @@ const MessagingScreen2 = props => {
   const [inputMessage, setInputMessage] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const [messages, setMessages] = React.useState([]);
+  // This function generates the chat history in the format required by the Gemini API. 
+  // It takes an array of messages and transforms them into the required structure, 
+  // while also limiting the number of messages to 75 (preserving the first two messages and the most recent user message).
   const generateChatHistory = messages => {
     let newMessages = [...messages];
     limit = 72
     preserved = 2 //The first two messages are the introduction and initial greeting
-    //The set limit of history is 75 messages, so we trim the array if it exceeds that
+    //The set limit of screen history is 75 messages, so we trim the array if it exceeds that
     if(newMessages.length > limit) {
       newMessages.splice(preserved, newMessages.length - limit); 
     }
