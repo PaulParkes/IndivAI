@@ -71,7 +71,7 @@ const GenerationResultsScreen = props => {
               height: 1024,
               width: 1024,
               steps: 29,
-              samples: 1,
+              samples: 6,
             }),
           }
         );
