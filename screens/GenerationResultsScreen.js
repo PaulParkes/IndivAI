@@ -43,6 +43,7 @@ const GenerationResultsScreen = props => {
   const [imagesNotReady, setImagesNotReady] = React.useState([true, false]);
   const [openModal, setOpenModal] = React.useState(false);
   const [selectedImage, setSelectedImage] = React.useState('');
+  // API call to generate images from prompts using Stability AI's API
   const generateImages = async prompts => {
     //Ammended from https://platform.stability.ai/docs/api-reference#tag/SDXL-1.0/operation/textToImage
     const engineId = 'stable-diffusion-xl-1024-v1-0';
