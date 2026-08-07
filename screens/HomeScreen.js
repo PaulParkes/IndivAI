@@ -36,19 +36,19 @@ const HomeScreen = props => {
   ] = React.useState(false);
   // Takes a character ID as input and deletes a character from the local SQLite database
   const deleteCharacterFromDatabase = async removedCharacter => {
-    //Ammended from https://docs.expo.dev/versions/v51.0.0/sdk/filesystem/
+    // Ammended from https://docs.expo.dev/versions/v51.0.0/sdk/filesystem/
     const fileUri = removedCharacter.Image_file_path;
     try {
-      //Removing the file from local filesystem
+      // Removing the file from local filesystem
       await expoFileSystem.deleteAsync(fileUri);
       console.log('File deleted successfully');
     } catch (error) {
       console.error('Failed to delete file:', fileUri);
     }
-    //Ammended from https://docs.expo.dev/versions/v51.0.0/sdk/sqlite/
+    // Ammended from https://docs.expo.dev/versions/v51.0.0/sdk/sqlite/
     const db = await expoSqlite.openDatabaseAsync('IndivDB');
     try {
-      //Removing a character from the database
+      // Removing a character from the database
       await db.withExclusiveTransactionAsync(async () => {
         await db.runAsync(
           'DELETE FROM Characters WHERE Character_ID = $Character',
@@ -66,11 +66,11 @@ const HomeScreen = props => {
   };
 
   const fetchCharactersFromDatabase = async () => {
-    //Ammended from https://docs.expo.dev/versions/v51.0.0/sdk/sqlite/
+    // Ammended from https://docs.expo.dev/versions/v51.0.0/sdk/sqlite/
     const db = await expoSqlite.openDatabaseAsync('IndivDB');
 
     try {
-      //Retrieves the Name, Character_ID, and associated Iamge path
+      // Retrieves the Name, Character_ID, and associated Image path
       await db.withExclusiveTransactionAsync(async () => {
         const characterSummaries = await db.getAllAsync(
           `SELECT Name, Character_ID, Initial_Greeting, Introduction, In_depth_Details, Image_file_path 
@@ -79,7 +79,7 @@ const HomeScreen = props => {
         );
 
         if (characterSummaries) {
-          //Overwrites the characterList to hold the retrieved character summaries so that they can be rendered in the Flastlist
+          // Overwrites the characterList to hold the retrieved character summaries so that they can be rendered in the Flastlist
           setCharacterList(characterSummaries);
         } else {
           setCharacterList([]);
@@ -92,12 +92,12 @@ const HomeScreen = props => {
     }
   };
 
-  // //SQLite Database setup commands, run on mount of screen
+  // SQLite Database setup commands, run on mount of screen
   const sqliteDatabaseSetup = async () => {
-    //Ammended from https://docs.expo.dev/versions/v51.0.0/sdk/sqlite/
+    // Ammended from https://docs.expo.dev/versions/v51.0.0/sdk/sqlite/
     const db = await expoSqlite.openDatabaseAsync('IndivDB');
     try {
-      //Create Tables
+      // Create Tables
       await db.execAsync(`
       PRAGMA foreign_keys = ON;
 
