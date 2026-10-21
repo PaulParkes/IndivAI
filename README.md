@@ -144,10 +144,6 @@ After installing, scan the barcode you see in the command line.
     └── README.md              # This file!
 ```
 
-## Publishing your app to the App Store
-
-Expo has really great documentation for how to get started. [Click here](https://docs.expo.dev/build/setup/) to learn more.
-
 ## Troubleshooting
 
 Any errors that may occur in the process of developing or testing your app will show up as a "Redbox" error on the testing device. A red box will be show on the device with the error message and stack trace for the error. The Expo documentation has [more information about Redbox errors](https://docs.expo.dev/debugging/errors-and-warnings).
@@ -158,11 +154,6 @@ should refer to Expo's documentation on [debugging
 Javascript](https://docs.expo.dev/debugging/runtime-issues).
 
 ## FAQ
-- _How do I build a binary for the App and Play store?_
-
-  Expo published an [excellent
-  guide](https://docs.expo.dev/build/setup/) for
-  deploying to the Apple App Store and the Google Play Store.
 
 - _What libraries does this code depend on?_
 
